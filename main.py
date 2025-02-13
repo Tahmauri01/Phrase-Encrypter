@@ -1,21 +1,24 @@
 from random import choice as choice
 
-characters = ["a","b","c",'d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t',"u","v", "w","x","y","z"]        #List of characters
+characters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']        #List of characters
 line = input("Type what you want to encrypt: ")
 numba = int(input("Type how many letters do you want to encrypt it by: "))
+key = input("What do you want your key to be: ")
 
 class Encrypter:      #Ways to encrypt
 
-    def __init__(self, phrase, num):    #Initializes the phrase and the copy of the phrase that will be created
+    def __init__(self, phrase, num, pswd):    #Initializes the phrase and the copy of the phrase that will be created
         self.phrase = phrase  
         self.num = num      
         self.letter = 0
+        self.pswd = pswd
     
     def caesar(self):      #Makes a Caeser Cipher
         phrase_list = list(self.phrase)           #Makes phrase into a list
         for char in phrase_list:
-            if phrase_list[self.letter] == ' ':              #If the character is a space, it will ignore it
-                phrase_list[self.letter] = ' '
+            
+            if phrase_list[self.letter].isalpha() == False:         #If the character is a space, it will ignore it
+                phrase_list[self.letter] = phrase_list[self.letter]
 
             if phrase_list[self.letter].isupper() == True:            #Checks if character is uppercase
                 phrase_list[self.letter] = phrase_list[self.letter].lower()     #Temporarily makes the character lower to find it in the list
@@ -42,8 +45,10 @@ class Encrypter:      #Ways to encrypt
         return copy_phrase
 
 
-encr = Encrypter(line, numba)        #Calls class
+encr = Encrypter(line, numba, key)        #Calls class
 print(encr.caesar())
 
-#Todo: make it ignore non lettered characters and numbers
 #Todo: add random cypher
+#Todo: add password for random cypher
+#Todo: add terminal clearer
+#Todo: add decrypter
