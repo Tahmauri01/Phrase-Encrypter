@@ -1,8 +1,11 @@
 from random import choice as choice
 
 characters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']        #List of characters
+
 line = input("Type what you want to encrypt: ")
-numba = int(input("Type how many letters do you want to encrypt it by: "))
+type = input("What type of encryption do you want: ")
+if 'caesar' in type:
+    numba = int(input("Type how many letters do you want to encrypt it by: "))
 key = input("What do you want your key to be: ")
 
 class Encrypter:      #Ways to encrypt
@@ -46,7 +49,19 @@ class Encrypter:      #Ways to encrypt
 
 
 encr = Encrypter(line, numba, key)        #Calls class
-print(encr.caesar())
+
+if "file" in line and len(line) == 4:              #If you want to encrypt a file you can type 'file'
+    line = input("What is the name of the file you want to encrypt: ")
+    with open(line, 'r') as origin, open('copy.txt', 'w') as copy:      #Opens the file and creates the encrypted file
+        f_line = origin.readline()
+        while f_line != '':                           #Reads the file to the end
+            line = f_line
+            encr = Encrypter(line, numba, key)         #Repeatedly calls the class to update the line
+            copy.write(encr.caesar())
+            f_line = origin.readline()                  #Goes to the next line
+    print("Encrypted.")
+else:
+    print(encr.caesar())
 
 #Todo: add random cypher
 #Todo: add password for random cypher
